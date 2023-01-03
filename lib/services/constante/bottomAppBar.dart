@@ -1,5 +1,6 @@
 import 'package:app_meteo/screen/home.dart';
 import 'package:app_meteo/screen/map.dart';
+import 'package:app_meteo/screen/parameters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
@@ -35,7 +36,8 @@ class _BottomAppBarState extends State<BottomAppBarState> {
   @override
   void initState() {
     super.initState();
-    _widgetOptions.addAll([const MapWidget(), const HomeWidgetState()]);
+    _widgetOptions.addAll(
+        [const MapWidget(), const HomeWidgetState(), const HomeWidgetState()]);
     mode = false;
   }
 
@@ -55,8 +57,12 @@ class _BottomAppBarState extends State<BottomAppBarState> {
         //     decoration: const BoxDecoration(
         //         gradient: LinearGradient(
         //             colors: [Colors.purple, Colors.pink]))),
-        leading:
-            IconButton(onPressed: () {}, icon: const Icon(Linecons.params)),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: ((context) => const ParametersWidget())));
+            },
+            icon: const Icon(Linecons.params)),
         title: const Text("Meteo App"),
         centerTitle: true,
         actions: [
@@ -88,6 +94,10 @@ class _BottomAppBarState extends State<BottomAppBarState> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Acceuil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_sharp),
+            label: 'Favoris',
           ),
         ],
         selectedItemColor: Colors.amber,

@@ -20,6 +20,8 @@ class _HomeWidgetStateState extends State<HomeWidgetState> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -74,11 +76,11 @@ class _HomeWidgetStateState extends State<HomeWidgetState> {
                         for (int i = 0; i < 3; i++)
                           const Expanded(
                             child: ListTile(
-                              // minLeadingWidth: 5,
+                              minLeadingWidth: 5,
                               leading: Icon(Meteocons.snow),
                               title: Text(
                                 "Text Valeur",
-                                style: TextStyle(fontSize: 10),
+                                style: TextStyle(fontSize: 7),
                               ),
                               subtitle: Text("26%"),
                             ),

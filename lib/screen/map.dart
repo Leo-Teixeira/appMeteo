@@ -13,9 +13,7 @@ class _MapWidgetState extends State<MapWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FlutterMap(
-          //  mapController: ...,
           options: MapOptions(
-            // center: Lat,
             zoom: 13.0,
             maxZoom: 19.0,
             keepAlive: true,
