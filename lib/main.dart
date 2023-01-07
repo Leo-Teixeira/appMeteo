@@ -7,11 +7,9 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/linecons_icons.dart';
 import 'package:fluttericon/meteocons_icons.dart';
 
-final helloWorldProvider = Provider<int>((_) => 0);
-
 void main() {
   runApp(
-    const Main(),
+    const ProviderScope(child: Main()),
   );
 }
 
@@ -20,10 +18,10 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       //Faire le dark theme avec provider par la suite
       debugShowCheckedModeBanner: false,
-      home: const BottomAppBarWidget(),
+      home: BottomAppBarWidget(),
     );
   }
 }

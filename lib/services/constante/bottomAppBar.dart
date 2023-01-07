@@ -5,33 +5,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/linecons_icons.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod/riverpod.dart';
 
-class BottomAppBarWidget extends StatelessWidget {
+enum Theme {
+  light,
+  dark,
+}
+
+final ThemeProvider = StateProvider((_) => Theme.light);
+
+class BottomAppBarWidget extends ConsumerWidget {
   const BottomAppBarWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      theme: ThemeData.dark(),
-      darkTheme: ThemeData.light(),
+      theme: ref.watch(ThemeProvider).name == "light"
+          ? ThemeData.light()
+          : ThemeData.dark(),
       title: "APP METEO",
       debugShowCheckedModeBanner: false,
-      home: const BottomAppBarState(),
+      home: const BottomAppBarWidgetState(),
     );
   }
 }
 
-class BottomAppBarState extends StatefulWidget {
-  const BottomAppBarState({Key? key}) : super(key: key);
+class BottomAppBarWidgetState extends ConsumerStatefulWidget {
+  const BottomAppBarWidgetState({super.key});
 
   @override
-  _BottomAppBarState createState() => _BottomAppBarState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _BottomAppBarWidgetStateState();
 }
 
-class _BottomAppBarState extends State<BottomAppBarState> {
+class _BottomAppBarWidgetStateState
+    extends ConsumerState<BottomAppBarWidgetState> {
   final List<Widget> _widgetOptions = [];
   int _selectedIndex = 1;
   late bool mode;
+  late String text;
 
   @override
   void initState() {
@@ -68,11 +81,15 @@ class _BottomAppBarState extends State<BottomAppBarState> {
         actions: [
           IconButton(
               onPressed: () {
-                setState(() {
-                  mode = !mode;
-                });
+                // setState(() {
+                //   mode = !mode;
+                // });
+                ref.read(ThemeProvider.notifier).state =
+                    ref.watch(ThemeProvider).name == "light"
+                        ? Theme.dark
+                        : Theme.light;
               },
-              icon: mode
+              icon: ref.watch(ThemeProvider).name == "dark"
                   ? const Icon(FontAwesome5.moon)
                   : const Icon(FontAwesome5.sun)),
         ],
