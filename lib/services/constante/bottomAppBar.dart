@@ -1,12 +1,12 @@
-import 'package:app_meteo/screen/home.dart';
-import 'package:app_meteo/screen/map.dart';
-import 'package:app_meteo/screen/parameters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/linecons_icons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod/riverpod.dart';
+
+import 'package:app_meteo/screen/home.dart';
+import 'package:app_meteo/screen/map.dart';
+import 'package:app_meteo/screen/parameters.dart';
 
 enum Theme {
   light,
@@ -81,9 +81,6 @@ class _BottomAppBarWidgetStateState
         actions: [
           IconButton(
               onPressed: () {
-                // setState(() {
-                //   mode = !mode;
-                // });
                 ref.read(ThemeProvider.notifier).state =
                     ref.watch(ThemeProvider).name == "light"
                         ? Theme.dark

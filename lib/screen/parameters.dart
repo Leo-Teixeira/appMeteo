@@ -14,7 +14,15 @@ class _ParametersWidgetState extends State<ParametersWidget> {
       appBar: AppBar(
         title: const Text("Retour"),
       ),
-      body: const Center(child: Text("test")),
+      body: Center(
+        child: Column(
+          children: [
+            TextButton(onPressed: () {
+              
+            }, child: const Text("Choisir un lieu"))
+          ],
+        ),
+      ),
     );
   }
 }
