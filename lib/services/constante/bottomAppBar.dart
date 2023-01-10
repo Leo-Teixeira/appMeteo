@@ -1,3 +1,5 @@
+import 'package:app_meteo/screen/favoris.dart';
+import 'package:app_meteo/services/constante/constante.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
@@ -7,13 +9,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:app_meteo/screen/home.dart';
 import 'package:app_meteo/screen/map.dart';
 import 'package:app_meteo/screen/parameters.dart';
-
-enum Theme {
-  light,
-  dark,
-}
-
-final ThemeProvider = StateProvider((_) => Theme.light);
 
 class BottomAppBarWidget extends ConsumerWidget {
   const BottomAppBarWidget({super.key});
@@ -50,7 +45,7 @@ class _BottomAppBarWidgetStateState
   void initState() {
     super.initState();
     _widgetOptions.addAll(
-        [const MapWidget(), const HomeWidgetState(), const HomeWidgetState()]);
+        [const MapWidget(), const HomeWidgetState(), const NewLocation()]);
     mode = false;
   }
 
@@ -83,8 +78,8 @@ class _BottomAppBarWidgetStateState
               onPressed: () {
                 ref.read(ThemeProvider.notifier).state =
                     ref.watch(ThemeProvider).name == "light"
-                        ? Theme.dark
-                        : Theme.light;
+                        ? ThemeApp.dark
+                        : ThemeApp.light;
               },
               icon: ref.watch(ThemeProvider).name == "dark"
                   ? const Icon(FontAwesome5.moon)

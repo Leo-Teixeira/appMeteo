@@ -1,4 +1,5 @@
 class Address {
+  //add location of the city
   final String street;
   final String city;
   final String postcode;

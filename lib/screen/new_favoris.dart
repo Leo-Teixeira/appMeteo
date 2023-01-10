@@ -1,22 +1,66 @@
 import 'package:app_meteo/object/adresseRepo.dart';
+import 'package:app_meteo/object/meteoRepo.dart';
+import 'package:app_meteo/screen/parameters.dart';
 import 'package:app_meteo/services/api/adresse.dart';
+import 'package:app_meteo/services/constante/constante.dart';
+import 'package:app_meteo/services/function/location_function.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:fluttericon/linecons_icons.dart';
 
-class SearchAddress extends StatefulWidget {
+final MeteoProviderTest = StateNotifierProvider<MeteoNotifier, List<Address>>(
+  (ref) {
+    return MeteoNotifier();
+  },
+);
+
+// final MeteoNotifierProvider =
+//     StateProvider.family<int, Address>((ref, address) {
+//   final meteo_provider = ref.watch(MeteoProviderTest);
+//   return meteo_provider.addLocation(address);
+// });
+
+class SearchAddress extends ConsumerStatefulWidget {
   const SearchAddress({Key? key}) : super(key: key);
 
   @override
-  State<SearchAddress> createState() => _SearchAddressState();
+  ConsumerState<SearchAddress> createState() => _SearchAddressState();
 }
 
-class _SearchAddressState extends State<SearchAddress> {
+class _SearchAddressState extends ConsumerState<SearchAddress> {
   List<Address> _addresses = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recherche adresse'),
+        backgroundColor: const Color(0xFFBD1ACD),
+        systemOverlayStyle: const SystemUiOverlayStyle(),
+        // flexibleSpace: Container(
+        //     decoration: const BoxDecoration(
+        //         gradient: LinearGradient(
+        //             colors: [Colors.purple, Colors.pink]))),
+        title: const Text("Meteo App"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                ref.read(ThemeProvider.notifier).state =
+                    ref.watch(ThemeProvider).name == "light"
+                        ? ThemeApp.dark
+                        : ThemeApp.light;
+              },
+              icon: ref.watch(ThemeProvider).name == "dark"
+                  ? const Icon(FontAwesome5.moon)
+                  : const Icon(FontAwesome5.sun)),
+        ],
+        shape: const RoundedRectangleBorder(
+            side: BorderSide.none,
+            borderRadius: BorderRadius.all(Radius.circular(30))),
+        elevation: 20.0,
+        shadowColor: Colors.blueGrey,
       ),
       body: Column(
         children: [
@@ -30,15 +74,7 @@ class _SearchAddressState extends State<SearchAddress> {
                 setState(() {
                   _addresses = addresses;
                 });
-
-                // Méthode 2
-                // addressRepository.fetchAddresses(value).then((addresses) {
-                //   setState(() {
-                //     _addresses = addresses;
-                //   });
-                // });
               }
-              print(value);
             },
           ),
           Expanded(
@@ -50,7 +86,8 @@ class _SearchAddressState extends State<SearchAddress> {
                   title: Text(address.street),
                   subtitle: Text('${address.postcode} ${address.city}'),
                   onTap: () {
-                    Navigator.of(context).pop(address);
+                    ref.watch(MeteoProviderTest.notifier).addLocation(address);
+                    Navigator.of(context).pop();
                   },
                 );
               },
