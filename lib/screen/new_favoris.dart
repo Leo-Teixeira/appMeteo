@@ -10,17 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/linecons_icons.dart';
 
-// final MeteoProviderTest = ChangeNotifierProvider<MeteoNotifier>(
-//   (ref) {
-//     return MeteoNotifier();
-//   },
-// );
-
-final MeteoProviderTest =
-    StateNotifierProvider<MeteoNotifier, List<Address>>((ref) {
-  return MeteoNotifier();
-});
-
 class SearchAddress extends ConsumerStatefulWidget {
   const SearchAddress({Key? key}) : super(key: key);
 
@@ -85,7 +74,7 @@ class _SearchAddressState extends ConsumerState<SearchAddress> {
                   title: Text(address.street),
                   subtitle: Text('${address.postcode} ${address.city}'),
                   onTap: () {
-                    ref.read(MeteoProviderTest.notifier).add(address);
+                    ref.read(LocationProvider.notifier).add(address);
                     Navigator.of(context).pop();
                   },
                 );

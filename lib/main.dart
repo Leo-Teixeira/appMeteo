@@ -6,8 +6,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/linecons_icons.dart';
 import 'package:fluttericon/meteocons_icons.dart';
+import 'package:geolocator/geolocator.dart';
 
-void main() {
+void main() async {
+  // LocationPermission perm = await Geolocator.checkPermission();
+  // while (perm == LocationPermission.denied ||
+  //     perm == LocationPermission.deniedForever) {
+  //   perm = await Geolocator.checkPermission();
+  // }
+  // Position getPos = await Geolocator.getCurrentPosition();
   runApp(
     const ProviderScope(child: Main()),
   );

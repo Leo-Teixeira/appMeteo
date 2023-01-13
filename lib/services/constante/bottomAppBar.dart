@@ -1,5 +1,7 @@
+import 'package:app_meteo/object/adresseRepo.dart';
 import 'package:app_meteo/screen/favoris.dart';
 import 'package:app_meteo/services/constante/constante.dart';
+import 'package:app_meteo/services/function/location_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
@@ -9,6 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:app_meteo/screen/home.dart';
 import 'package:app_meteo/screen/map.dart';
 import 'package:app_meteo/screen/parameters.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomAppBarWidget extends ConsumerWidget {
   const BottomAppBarWidget({super.key});
@@ -50,6 +53,13 @@ class _BottomAppBarWidgetStateState
   }
 
   _onItemTapped(int index) async {
+    if (index == 2) {
+      List<Address> list =
+          await ref.refresh(PreferenceNotifierProvider.future).then((value) {
+        return value;
+      });
+      ref.watch(LocationProvider.notifier).addListAdr(list);
+    }
     setState(() {
       _selectedIndex = index;
     });

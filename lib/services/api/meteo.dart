@@ -16,18 +16,21 @@ class MeteoApi {
     if (response.statusCode == 200) {
       final List<ForecastDay> listForecats = [];
       final Map<String, dynamic> json = jsonDecode(response.body);
-      final cityInfo infoCity = cityInfo.fromMap(json['city_info']);
+      final CityInfo infoCity = CityInfo.fromMap(json['city_info']);
       final CurrentCondition currentCondition =
           CurrentCondition.fromMap(json['current_condition']);
       for (int i = 0; i < 5; i++) {
         final Map<String, dynamic> listHourly = json['fcst_day_$i'];
-        final hourlyMeteo hourMeteo =
-            hourlyMeteo.fromMap(listHourly['hourly_data']);
+        final HourlyMeteo hourMeteo =
+            HourlyMeteo.fromMap(listHourly['hourly_data']);
         final ForecastDay forecastDay =
             ForecastDay.fromMap(listHourly, hourMeteo);
         listForecats.add(forecastDay);
       }
-      final Meteo meteo = Meteo(info_city: infoCity, current_meteo: currentCondition, past_day: listForecats);
+      final Meteo meteo = Meteo(
+          info_city: infoCity,
+          current_meteo: currentCondition,
+          past_day: listForecats);
       return meteo;
     } else {
       throw Exception('failed to login');

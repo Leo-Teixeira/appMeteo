@@ -1,19 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
+@immutable
 class Meteo {
-  final cityInfo info_city;
+  final CityInfo info_city;
   final CurrentCondition current_meteo;
   final List<ForecastDay> past_day;
 
-  Meteo({
+  const Meteo({
     required this.info_city,
     required this.current_meteo,
     required this.past_day,
   });
 }
 
-class cityInfo {
+@immutable
+class CityInfo {
   final String name;
   final String country;
   final String latitude;
@@ -22,7 +26,7 @@ class cityInfo {
   final String sunrise;
   final String sunset;
 
-  cityInfo({
+  const CityInfo({
     required this.name,
     required this.country,
     required this.latitude,
@@ -44,8 +48,8 @@ class cityInfo {
     };
   }
 
-  factory cityInfo.fromMap(Map<String, dynamic> map) {
-    return cityInfo(
+  factory CityInfo.fromMap(Map<String, dynamic> map) {
+    return CityInfo(
       name: map['name'] as String,
       country: map['country'] as String,
       latitude: map['latitude'] as String,
@@ -57,6 +61,7 @@ class cityInfo {
   }
 }
 
+@immutable
 class CurrentCondition {
   final String date;
   final String hour;
@@ -71,7 +76,7 @@ class CurrentCondition {
   final String icon;
   final String icon_big;
 
-  CurrentCondition({
+  const CurrentCondition({
     required this.date,
     required this.hour,
     required this.tmp,
@@ -121,6 +126,7 @@ class CurrentCondition {
   }
 }
 
+@immutable
 class ForecastDay {
   final String date;
   final String day_short;
@@ -131,9 +137,9 @@ class ForecastDay {
   final String condition_key;
   final String icon;
   final String icon_big;
-  final hourlyMeteo hourly_data;
+  final HourlyMeteo hourly_data;
 
-  ForecastDay({
+  const ForecastDay({
     required this.date,
     required this.day_short,
     required this.day_long,
@@ -162,7 +168,7 @@ class ForecastDay {
   }
 
   factory ForecastDay.fromMap(
-      Map<String, dynamic> map, hourlyMeteo hour_meteo) {
+      Map<String, dynamic> map, HourlyMeteo hour_meteo) {
     return ForecastDay(
       date: map['date'] as String,
       day_short: map['day_short'] as String,
@@ -178,7 +184,8 @@ class ForecastDay {
   }
 }
 
-class hourlyMeteo {
+@immutable
+class HourlyMeteo {
   final String icon;
   final String condition;
   final String condition_key;
@@ -201,7 +208,7 @@ class hourlyMeteo {
   final String cape1800;
   final double cin1800;
 
-  hourlyMeteo({
+  const HourlyMeteo({
     required this.icon,
     required this.condition,
     required this.condition_key,
@@ -251,8 +258,8 @@ class hourlyMeteo {
     };
   }
 
-  factory hourlyMeteo.fromMap(Map<String, dynamic> map) {
-    return hourlyMeteo(
+  factory HourlyMeteo.fromMap(Map<String, dynamic> map) {
+    return HourlyMeteo(
       icon: map['icon'] as String,
       condition: map['condition'] as String,
       condition_key: map['condition_key'] as String,

@@ -1,14 +1,13 @@
-
 import 'package:flutter/cupertino.dart';
 
 @immutable
 class Address {
   //add location of the city
   final String street;
-  final String city;
   final String postcode;
+  final String city;
 
-  const Address(this.street, this.city, this.postcode);
+  const Address(this.street, this.postcode, this.city);
 
   factory Address.fromGeoJson(Map<String, dynamic> json) {
     final Map<String, dynamic> properties = json['properties'] ?? {};
@@ -22,12 +21,12 @@ class Address {
   Map<String, dynamic> toMap() {
     return {
       'street': street,
-      'city': city,
       'postcode': postcode,
+      'city': city,
     };
   }
 
   factory Address.fromMap(Map<String, dynamic> json) {
-    return Address(json['street'], json['city'], json['postcode']);
+    return Address(json['street'], json['postcode'], json['city']);
   }
 }

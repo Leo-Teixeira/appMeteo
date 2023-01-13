@@ -1,5 +1,6 @@
 import 'package:app_meteo/object/adresseRepo.dart';
 import 'package:app_meteo/screen/new_favoris.dart';
+import 'package:app_meteo/services/constante/constante.dart';
 import 'package:app_meteo/services/function/location_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +11,7 @@ class NewLocation extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Address> list = ref.watch(MeteoProviderTest);
+    final list = ref.watch(LocationProvider);
     return Scaffold(
       body: Center(
         child: ListView.separated(
@@ -19,9 +20,12 @@ class NewLocation extends ConsumerWidget {
             return ListTile(
               leading: const Icon(Icons.apartment),
               title: Text(list[index].street),
+              subtitle: Text(list[index].city),
               trailing: IconButton(
                 onPressed: () {
-                  ref.read(MeteoProviderTest.notifier).remove(list[index]);
+                  ref
+                      .read(LocationProvider.notifier)
+                      .remove(list[index], index);
                 },
                 icon: Icon(FontAwesome5.trash_alt),
               ),
