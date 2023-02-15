@@ -27,4 +27,25 @@ class AddressRepository {
       throw Exception('Failed to load addresses');
     }
   }
+
+  Future<Address> fetchPosAddress(double long, double lat) async {
+    final Response response = await get(Uri.parse(
+        'https://api-adresse.data.gouv.fr/reverse/?lon=$long&lat=$lat&limit=1'));
+    if (response.statusCode == 200) {
+      // Transformation du JSON (String) en Map<String, dynamic>
+      final Map<String, dynamic> json = jsonDecode(response.body);
+      if (json.containsKey("features")) {
+        // Récupération des "features"
+        final List<dynamic> features = json['features'];
+
+        // Transformation de chaque "feature" en objet de type "Address"
+        final Address address = Address.fromMap(features[0]['properties']);
+        return address;
+      } else {
+        throw Exception('Failed to load addresses');
+      }
+    } else {
+      throw Exception('Failed to load addresses');
+    }
+  }
 }

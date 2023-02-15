@@ -112,12 +112,12 @@ class CurrentCondition {
     return CurrentCondition(
       date: map['date'] as String,
       hour: map['hour'] as String,
-      tmp: map['tmp'] as String,
-      wnd_spd: map['wnd_spd'] as String,
-      wnd_gust: map['wnd_gust'] as String,
+      tmp: map['tmp'].toString(),
+      wnd_spd: map['wnd_spd'].toString(),
+      wnd_gust: map['wnd_gust'].toString(),
       wnd_dir: map['wnd_dir'] as String,
-      pressure: map['pressure'] as String,
-      humidity: map['humidity'] as String,
+      pressure: map['pressure'].toString(),
+      humidity: map['humidity'].toString(),
       condition: map['condition'] as String,
       condition_key: map['condition_key'] as String,
       icon: map['icon'] as String,
@@ -128,16 +128,16 @@ class CurrentCondition {
 
 @immutable
 class ForecastDay {
-  final String date;
-  final String day_short;
-  final String day_long;
-  final String tmin;
-  final String tmax;
-  final String condition;
-  final String condition_key;
-  final String icon;
-  final String icon_big;
-  final HourlyMeteo hourly_data;
+  final String? date;
+  final String? day_short;
+  final String? day_long;
+  final int? tmin;
+  final int? tmax;
+  final String? condition;
+  final String? condition_key;
+  final String? icon;
+  final String? icon_big;
+  final HourlyMeteo? hourly_data;
 
   const ForecastDay({
     required this.date,
@@ -163,22 +163,22 @@ class ForecastDay {
       'condition_key': condition_key,
       'icon': icon,
       'icon_big': icon_big,
-      'hourly_data': hourly_data.toMap(),
+      'hourly_data': hourly_data?.toMap(),
     };
   }
 
   factory ForecastDay.fromMap(
       Map<String, dynamic> map, HourlyMeteo hour_meteo) {
     return ForecastDay(
-      date: map['date'] as String,
-      day_short: map['day_short'] as String,
-      day_long: map['day_long'] as String,
-      tmin: map['tmin'] as String,
-      tmax: map['tmax'] as String,
-      condition: map['condition'] as String,
-      condition_key: map['condition_key'] as String,
-      icon: map['icon'] as String,
-      icon_big: map['icon_big'] as String,
+      date: map['date'] ?? "pas de donnée",
+      day_short: map['day_short'] ?? "pas de donnée",
+      day_long: map['day_long'] ?? "pas de donnée",
+      tmin: map['tmin'] as int,
+      tmax: map['tmax'] as int,
+      condition: map['condition'] ?? "pas de donnée",
+      condition_key: map['condition_key'] ?? "pas de donnée",
+      icon: map['icon'] ?? "pas de donnée",
+      icon_big: map['icon_big'] ?? "pas de donnée",
       hourly_data: hour_meteo,
     );
   }
@@ -186,27 +186,28 @@ class ForecastDay {
 
 @immutable
 class HourlyMeteo {
-  final String icon;
-  final String condition;
-  final String condition_key;
-  final double tmp2m;
-  final double dpt2m;
-  final double wndchill2m;
-  final String humidex;
-  final int rh2m;
-  final double prmsl;
-  final int apcpsfc;
-  final int wndspd10m;
-  final int wnddir10m;
-  final String wnddircard10;
-  final int issnow;
-  final String hcdc;
-  final String mcdc;
-  final String lcdc;
-  final int hgtoc;
-  final int kindex;
-  final String cape1800;
-  final double cin1800;
+  final String? icon;
+  final String? condition;
+  final String? condition_key;
+  final double? tmp2m;
+  final double? dpt2m;
+  final double? wndchill2m;
+  final String? humidex;
+  final int? rh2m;
+  final double? prmsl;
+  final int? apcpsfc;
+  final int? wndspd10m;
+  final int? wndgust10m;
+  final int? wnddir10m;
+  final String? wnddircard10;
+  final int? issnow;
+  final String? hcdc;
+  final String? mcdc;
+  final String? lcdc;
+  final int? hgtoc;
+  final int? kindex;
+  final String? cape1800;
+  final double? cin1800;
 
   const HourlyMeteo({
     required this.icon,
@@ -220,6 +221,7 @@ class HourlyMeteo {
     required this.prmsl,
     required this.apcpsfc,
     required this.wndspd10m,
+    required this.wndgust10m,
     required this.wnddir10m,
     required this.wnddircard10,
     required this.issnow,
@@ -245,6 +247,7 @@ class HourlyMeteo {
       'prmsl': prmsl,
       'apcpsfc': apcpsfc,
       'wndspd10m': wndspd10m,
+      'wndgust10m': wndgust10m,
       'wnddir10m': wnddir10m,
       'wnddircard10': wnddircard10,
       'issnow': issnow,
@@ -260,27 +263,28 @@ class HourlyMeteo {
 
   factory HourlyMeteo.fromMap(Map<String, dynamic> map) {
     return HourlyMeteo(
-      icon: map['icon'] as String,
-      condition: map['condition'] as String,
-      condition_key: map['condition_key'] as String,
-      tmp2m: map['tmp2m'] as double,
-      dpt2m: map['dpt2m'] as double,
-      wndchill2m: map['wndchill2m'] as double,
-      humidex: map['humidex'] as String,
-      rh2m: map['rh2m'] as int,
-      prmsl: map['prmsl'] as double,
-      apcpsfc: map['apcpsfc'] as int,
-      wndspd10m: map['wndspd10m'] as int,
-      wnddir10m: map['wnddir10m'] as int,
-      wnddircard10: map['wnddircard10'] as String,
-      issnow: map['issnow'] as int,
-      hcdc: map['hcdc'] as String,
-      mcdc: map['mcdc'] as String,
-      lcdc: map['lcdc'] as String,
-      hgtoc: map['hgtoc'] as int,
-      kindex: map['kindex'] as int,
-      cape1800: map['cape1800'] as String,
-      cin1800: map['cin1800'] as double,
+      icon: map['ICON'] ?? "Pas d'icone",
+      condition: map['CONDITION'] ?? "pas de condition",
+      condition_key: map['CONDITION_KEY'] ?? "pas de key",
+      tmp2m: map['TMP2m'] ?? 0.0,
+      dpt2m: map['DPT2m'] ?? 0.0,
+      wndchill2m: map['WNDCHILL2m'] ?? 0.0,
+      humidex: map['HUMIDEX'] ?? "pas de donnée",
+      rh2m: map['RH2m'] ?? 0,
+      prmsl: map['PRMSL'] ?? 0.0,
+      apcpsfc: map['APCPsfc'] ?? 0,
+      wndspd10m: map['WNDSPD10m'] ?? 0,
+      wndgust10m: map['WNDGUST10m'] ?? 0,
+      wnddir10m: map['WNDDIR10m'] ?? 0,
+      wnddircard10: map['WNDDIRCARD10'] ?? "pas de donnée",
+      issnow: map['ISSNOW'] ?? 0,
+      hcdc: map['HCDC'] ?? "pas de donnée",
+      mcdc: map['MCDC'] ?? "pas de donnée",
+      lcdc: map['LCDC'] ?? "pas de donnée",
+      hgtoc: map['HGT0C'] ?? 0,
+      kindex: map['KINDEX'] ?? 0,
+      cape1800: map['CAPE180_0'] ?? "pas de donnée",
+      cin1800: map['CIN180_0'] ?? 0.0,
     );
   }
 }

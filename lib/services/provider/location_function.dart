@@ -1,14 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:app_meteo/object/adresseRepo.dart';
+import 'package:app_meteo/object/meteoRepo.dart';
 import 'package:flutter/widgets.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Locationnotifier extends StateNotifier<List<Address>> {
-  //passer les preference en tant que liste initial
   Locationnotifier() : super([]);
+
+  //passer les preference en tant que liste initial
 
   void add(Address address) {
     saveAdr(address);
@@ -28,7 +32,29 @@ class Locationnotifier extends StateNotifier<List<Address>> {
   }
 }
 
+class MeteoNotifier extends StateNotifier<Meteo> {
+  MeteoNotifier(super.state);
+
+  void addMeteo(Meteo meteo) {
+    state = meteo;
+  }
+}
+
 List<String> listJson = [];
+
+getPos() async {
+  LocationPermission perm = await Geolocator.checkPermission();
+  if (perm == LocationPermission.denied ||
+      perm == LocationPermission.deniedForever) {
+    perm = await Geolocator.requestPermission();
+    if (perm == LocationPermission.denied ||
+        perm == LocationPermission.deniedForever) {
+      addPos(0.0, 0.0);
+    }
+  }
+  Position getPos = await Geolocator.getCurrentPosition();
+  addPos(getPos.latitude, getPos.longitude);
+}
 
 Future<void> saveAdr(Address address) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -46,5 +72,10 @@ Future<void> deleteAdr(int addressIndex) async {
   listJson = prefs.getStringList('address')!;
   listJson.removeAt(addressIndex);
   prefs.setStringList('address', listJson);
-  print(prefs.getStringList("address"));
+}
+
+Future<void> addPos(double lat, double long) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("lat", lat.toString());
+  prefs.setString("long", long.toString());
 }

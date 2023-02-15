@@ -1,7 +1,6 @@
 import 'package:app_meteo/object/adresseRepo.dart';
 import 'package:app_meteo/screen/favoris.dart';
 import 'package:app_meteo/services/constante/constante.dart';
-import 'package:app_meteo/services/function/location_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
@@ -11,7 +10,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:app_meteo/screen/home.dart';
 import 'package:app_meteo/screen/map.dart';
 import 'package:app_meteo/screen/parameters.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomAppBarWidget extends ConsumerWidget {
   const BottomAppBarWidget({super.key});
@@ -47,8 +45,8 @@ class _BottomAppBarWidgetStateState
   @override
   void initState() {
     super.initState();
-    _widgetOptions.addAll(
-        [const MapWidget(), const HomeWidgetState(), const NewLocation()]);
+    _widgetOptions
+        .addAll([const MapWidget(), const HomeWidget(), const NewLocation()]);
     mode = false;
   }
 
@@ -68,66 +66,73 @@ class _BottomAppBarWidgetStateState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFBD1ACD),
-        systemOverlayStyle: const SystemUiOverlayStyle(),
-        // flexibleSpace: Container(
-        //     decoration: const BoxDecoration(
-        //         gradient: LinearGradient(
-        //             colors: [Colors.purple, Colors.pink]))),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: ((context) => const ParametersWidget())));
-            },
-            icon: const Icon(Linecons.params)),
-        title: const Text("Meteo App"),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                ref.read(ThemeProvider.notifier).state =
-                    ref.watch(ThemeProvider).name == "light"
-                        ? ThemeApp.dark
-                        : ThemeApp.light;
-              },
-              icon: ref.watch(ThemeProvider).name == "dark"
-                  ? const Icon(FontAwesome5.moon)
-                  : const Icon(FontAwesome5.sun)),
-        ],
-        shape: const RoundedRectangleBorder(
-            side: BorderSide.none,
-            borderRadius: BorderRadius.all(Radius.circular(30))),
-        elevation: 20.0,
-        shadowColor: Colors.blueGrey,
-      ),
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        enableFeedback: true,
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesome5.map_marked_alt),
-            label: 'Carte',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Acceuil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_sharp),
-            label: 'Favoris',
-          ),
-        ],
-        selectedItemColor: Colors.amber,
-        unselectedItemColor: Colors.grey,
-        selectedIconTheme: const IconThemeData(color: Colors.amberAccent),
-        unselectedIconTheme: const IconThemeData(color: Colors.grey),
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-    );
+        appBar: appBar(context, ref),
+        body: _widgetOptions.elementAt(_selectedIndex),
+        bottomNavigationBar: bottomAppBar(_selectedIndex, _onItemTapped));
   }
+}
+
+PreferredSizeWidget? appBar(BuildContext context, WidgetRef ref) {
+  return AppBar(
+    backgroundColor: const Color(0xFFBD1ACD),
+    systemOverlayStyle: const SystemUiOverlayStyle(),
+    // flexibleSpace: Container(
+    //     decoration: const BoxDecoration(
+    //         gradient: LinearGradient(
+    //             colors: [Colors.purple, Colors.pink]))),
+    leading: IconButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: ((context) => const ParametersWidget())));
+        },
+        icon: const Icon(Linecons.params)),
+    title: const Text("Meteo App"),
+    centerTitle: true,
+    actions: [
+      IconButton(
+          onPressed: () {
+            ref.read(ThemeProvider.notifier).state =
+                ref.watch(ThemeProvider).name == "light"
+                    ? ThemeApp.dark
+                    : ThemeApp.light;
+          },
+          icon: ref.watch(ThemeProvider).name == "dark"
+              ? const Icon(FontAwesome5.moon)
+              : const Icon(FontAwesome5.sun)),
+    ],
+    shape: const RoundedRectangleBorder(
+        side: BorderSide.none,
+        borderRadius: BorderRadius.all(Radius.circular(30))),
+    elevation: 20.0,
+    shadowColor: Colors.blueGrey,
+  );
+}
+
+Widget bottomAppBar(int selectedIndex, Function(int)? onItemTapped) {
+  return BottomNavigationBar(
+    enableFeedback: true,
+    type: BottomNavigationBarType.fixed,
+    items: const <BottomNavigationBarItem>[
+      BottomNavigationBarItem(
+        icon: Icon(FontAwesome5.map_marked_alt),
+        label: 'Carte',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        label: 'Acceuil',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.favorite_sharp),
+        label: 'Favoris',
+      ),
+    ],
+    selectedItemColor: Colors.amber,
+    unselectedItemColor: Colors.grey,
+    selectedIconTheme: const IconThemeData(color: Colors.amberAccent),
+    unselectedIconTheme: const IconThemeData(color: Colors.grey),
+    selectedFontSize: 12,
+    unselectedFontSize: 12,
+    currentIndex: selectedIndex,
+    onTap: onItemTapped,
+  );
 }

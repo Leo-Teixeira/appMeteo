@@ -3,7 +3,7 @@ import 'package:app_meteo/object/meteoRepo.dart';
 import 'package:app_meteo/screen/parameters.dart';
 import 'package:app_meteo/services/api/adresse.dart';
 import 'package:app_meteo/services/constante/constante.dart';
-import 'package:app_meteo/services/function/location_function.dart';
+import 'package:app_meteo/services/provider/location_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
