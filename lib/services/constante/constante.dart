@@ -63,7 +63,7 @@ final PreferenceNotifierProvider = FutureProvider<List<Address>>((ref) async {
     listJson = prefs.getStringList('address')!;
     for (var i = 0; i < listJson.length; i++) {
       adr = jsonDecode(listJson[i]);
-      listAdr.add(Address.fromMap(adr));
+      listAdr.add(Address.fromMapJson(adr));
     }
     return listAdr;
   }

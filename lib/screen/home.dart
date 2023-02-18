@@ -9,16 +9,40 @@ class HomeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final List<String> listTitleHight = ["Précipitation", "Vent ouest", "HUM"];
+    final List<String> listTitleBottom = [
+      "Vitesse vent",
+      "Direction",
+      "Pression"
+    ];
+    final List<String> listMeasureHight = ["mm", "km/h", "%"];
+    final List<String> listMeasureBottom = ["km/h", "", "hPa"];
+    List listValueHight = [];
+    List listValueBottom = [];
     final getMeteo = ref.watch(meteoProvider);
     return Scaffold(
         extendBodyBehindAppBar: true,
         extendBody: true,
         body: getMeteo.when(data: (data) {
-          print(data);
+          listValueHight = [
+            "",
+            data.current_meteo.wnd_gust,
+            data.current_meteo.humidity
+          ];
+          listValueBottom = [
+            data.current_meteo.wnd_spd,
+            data.current_meteo.wnd_dir,
+            data.current_meteo.pressure
+          ];
           return SingleChildScrollView(
             padding: const EdgeInsets.all(10),
             child: Column(
               children: <Widget>[
+                Center(
+                    child: Text(
+                  data.info_city.name,
+                  style: const TextStyle(fontSize: 25),
+                )),
                 Card(
                   elevation: 8,
                   shape: const RoundedRectangleBorder(
@@ -28,9 +52,8 @@ class HomeWidget extends ConsumerWidget {
                   child: ListTile(
                     title: Column(
                       children: [
-                        const Icon(
-                          Meteocons.rain,
-                          size: 100,
+                        Image.network(
+                          data.current_meteo.icon.toString(),
                         ),
                         Container(
                           margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -63,12 +86,22 @@ class HomeWidget extends ConsumerWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      for (int i = 0; i < 2; i++)
-                        Row(
-                          children: [
-                            for (int i = 0; i < 3; i++) getInfoRow("title", "")
-                          ],
-                        ),
+                      // for (int i = 0; i < 2; i++)
+
+                      Row(
+                        children: [
+                          for (int i = 0; i < 3; i++)
+                            getInfoRow(listTitleHight[i], listValueHight[i],
+                                listMeasureHight[i]),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          for (int i = 0; i < 3; i++)
+                            getInfoRow(listTitleBottom[i], listValueBottom[i],
+                                listMeasureBottom[i]),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -78,7 +111,7 @@ class HomeWidget extends ConsumerWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      for (int i = 0; i < 7; i++)
+                      for (int i = 0; i < 5; i++)
                         Container(
                           height: MediaQuery.of(context).size.height / 3,
                           width: MediaQuery.of(context).size.width / 3,
@@ -93,21 +126,18 @@ class HomeWidget extends ConsumerWidget {
                             margin: const EdgeInsets.all(15),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
+                              children: [
                                 Text(
-                                  "Mon",
-                                  style: TextStyle(
+                                  data.past_day[i].day_short.toString(),
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text("13 Feb"),
-                                Icon(
-                                  Meteocons.sun,
-                                  size: 50,
-                                ),
+                                Text(data.past_day[i].date.toString()),
+                                Image.network(data.past_day[i].icon.toString()),
                                 Text(
-                                  "26°",
-                                  style: TextStyle(
+                                  "${(data.past_day[i].tmin! + data.past_day[i].tmax!) / 2}°",
+                                  style: const TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -126,22 +156,23 @@ class HomeWidget extends ConsumerWidget {
           print(stackTrace);
           return const CircularProgressIndicator();
         }, loading: () {
-          print("je load");
           return const CircularProgressIndicator();
         }));
   }
 }
 
-Widget getInfoRow(String title, String value) {
+Widget getInfoRow(String title, String value, String measure) {
   return Expanded(
     child: ListTile(
       minLeadingWidth: 5,
-      leading: const Icon(Meteocons.snow),
       title: Text(
         title,
-        style: const TextStyle(fontSize: 7),
+        style: const TextStyle(fontSize: 10),
       ),
-      subtitle: Text(value),
+      subtitle: Text(
+        "$value $measure",
+        style: const TextStyle(fontSize: 12),
+      ),
     ),
   );
 }

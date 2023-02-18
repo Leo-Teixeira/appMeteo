@@ -1,3 +1,5 @@
+import 'package:app_meteo/services/constante/bottomAppBar.dart';
+import 'package:app_meteo/services/provider/location_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
@@ -24,6 +26,12 @@ Widget body(WidgetRef ref) {
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
+          onTap: () {
+            addPos(list[index].long, list[index].lat);
+            ref.refresh(meteoProvider);
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const BottomAppBarWidgetState()));
+          },
           leading: const Icon(Icons.apartment),
           title: Text(list[index].street),
           subtitle: Text(list[index].city),

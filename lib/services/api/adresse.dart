@@ -39,7 +39,9 @@ class AddressRepository {
         final List<dynamic> features = json['features'];
 
         // Transformation de chaque "feature" en objet de type "Address"
-        final Address address = Address.fromMap(features[0]['properties']);
+        // print(features[0]['geometry']['coordinates']);
+        final Address address = Address.fromMap(
+            features[0]['properties'], features[0]['geometry']['coordinates']);
         return address;
       } else {
         throw Exception('Failed to load addresses');
