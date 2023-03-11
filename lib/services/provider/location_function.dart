@@ -76,7 +76,6 @@ Future<void> deleteAdr(int addressIndex) async {
 
 Future<void> addPos(double lat, double long) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  // prefs.clear();
   prefs.setString("lat", lat.toString());
   prefs.setString("long", long.toString());
 }

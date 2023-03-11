@@ -15,17 +15,17 @@ class MeteoApi {
     );
     if (response.statusCode == 200) {
       final List<ForecastDay> listForecats = [];
+      final List<HourlyMeteo> listHourlyData = [];
       final Map<String, dynamic> json = jsonDecode(response.body);
       final CityInfo infoCity = CityInfo.fromMap(json['city_info']);
       final CurrentCondition currentCondition =
           CurrentCondition.fromMap(json['current_condition']);
       for (int i = 0; i < 5; i++) {
         final Map<String, dynamic> listHourly = json['fcst_day_$i'];
-        final HourlyMeteo hourMeteo =
-            HourlyMeteo.fromMap(listHourly['hourly_data']);
-        final ForecastDay forecastDay =
-            ForecastDay.fromMap(listHourly, hourMeteo);
-        listForecats.add(forecastDay);
+        for (int i = 0; i < 23; i++) {
+          listHourlyData.add(HourlyMeteo.fromMap(listHourly['hourly_data']['${i}H00']));
+        }
+        listForecats.add(ForecastDay.fromMap(listHourly, listHourlyData));
       }
       final Meteo meteo = Meteo(
           info_city: infoCity,

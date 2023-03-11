@@ -1,3 +1,4 @@
+import 'package:app_meteo/services/provider/meteo_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/meteocons_icons.dart';
@@ -24,6 +25,8 @@ class HomeWidget extends ConsumerWidget {
         extendBodyBehindAppBar: true,
         extendBody: true,
         body: getMeteo.when(data: (data) {
+          List<Map<String, dynamic>> horaireData =
+              getMeteoHoraire(data.past_day);
           listValueHight = [
             "",
             data.current_meteo.wnd_gust,
@@ -65,15 +68,47 @@ class HomeWidget extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    // subtitle: Container(
-                    //   child: Text("15 janvier 2023"),
-                    //   margin: EdgeInsets.fromLTRB(0, 200, 0, 0),
-                    //   alignment: AlignmentDirectional.bottomStart,
-                    // ),
-                    // leading: Text("test"),
                     trailing: Text(
                       "${data.current_meteo.tmp}°",
                       style: const TextStyle(fontSize: 50),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Card(
+                    elevation: 8,
+                    // shape: const RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.all(Radius.circular(30))),
+                    shadowColor: primaryColor,
+                    // margin: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("Prévision Horaire : "),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              for (int i = 0; i < horaireData.length; i++)
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text(horaireData[i]['time']),
+                                        Image.network(horaireData[i]['icon']),
+                                        Text("${horaireData[i]['tmp']}°"),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                  ],
+                                ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -154,9 +189,9 @@ class HomeWidget extends ConsumerWidget {
         }, error: (Object error, StackTrace stackTrace) {
           print(error);
           print(stackTrace);
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }, loading: () {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }));
   }
 }

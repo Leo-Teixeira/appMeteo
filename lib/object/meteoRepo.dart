@@ -137,7 +137,7 @@ class ForecastDay {
   final String? condition_key;
   final String? icon;
   final String? icon_big;
-  final HourlyMeteo? hourly_data;
+  final List<HourlyMeteo>? hourly_data;
 
   const ForecastDay({
     required this.date,
@@ -163,23 +163,24 @@ class ForecastDay {
       'condition_key': condition_key,
       'icon': icon,
       'icon_big': icon_big,
-      'hourly_data': hourly_data?.toMap(),
+      'hourly_data': hourly_data?.map((x) => x.toMap()).toList(),
     };
   }
 
   factory ForecastDay.fromMap(
-      Map<String, dynamic> map, HourlyMeteo hour_meteo) {
+      Map<String, dynamic> map, List<HourlyMeteo> hourlyData) {
     return ForecastDay(
-      date: map['date'] ?? "pas de donnée",
-      day_short: map['day_short'] ?? "pas de donnée",
-      day_long: map['day_long'] ?? "pas de donnée",
-      tmin: map['tmin'] as int,
-      tmax: map['tmax'] as int,
-      condition: map['condition'] ?? "pas de donnée",
-      condition_key: map['condition_key'] ?? "pas de donnée",
-      icon: map['icon'] ?? "pas de donnée",
-      icon_big: map['icon_big'] ?? "pas de donnée",
-      hourly_data: hour_meteo,
+      date: map['date'] != null ? map['date'] as String : null,
+      day_short: map['day_short'] != null ? map['day_short'] as String : null,
+      day_long: map['day_long'] != null ? map['day_long'] as String : null,
+      tmin: map['tmin'] != null ? map['tmin'] as int : null,
+      tmax: map['tmax'] != null ? map['tmax'] as int : null,
+      condition: map['condition'] != null ? map['condition'] as String : null,
+      condition_key:
+          map['condition_key'] != null ? map['condition_key'] as String : null,
+      icon: map['icon'] != null ? map['icon'] as String : null,
+      icon_big: map['icon_big'] != null ? map['icon_big'] as String : null,
+      hourly_data: hourlyData,
     );
   }
 }
@@ -189,25 +190,25 @@ class HourlyMeteo {
   final String? icon;
   final String? condition;
   final String? condition_key;
-  final double? tmp2m;
-  final double? dpt2m;
-  final double? wndchill2m;
+  final num? tmp2m;
+  final num? dpt2m;
+  final num? wndchill2m;
   final String? humidex;
-  final int? rh2m;
-  final double? prmsl;
-  final int? apcpsfc;
-  final int? wndspd10m;
-  final int? wndgust10m;
-  final int? wnddir10m;
+  final num? rh2m;
+  final num? prmsl;
+  final num? apcpsfc;
+  final num? wndspd10m;
+  final num? wndgust10m;
+  final num? wnddir10m;
   final String? wnddircard10;
   final int? issnow;
   final String? hcdc;
   final String? mcdc;
   final String? lcdc;
-  final int? hgtoc;
-  final int? kindex;
+  final num? hgtoc;
+  final num? kindex;
   final String? cape1800;
-  final double? cin1800;
+  final num? cin1800;
 
   const HourlyMeteo({
     required this.icon,
@@ -272,7 +273,7 @@ class HourlyMeteo {
       humidex: map['HUMIDEX'] ?? "pas de donnée",
       rh2m: map['RH2m'] ?? 0,
       prmsl: map['PRMSL'] ?? 0.0,
-      apcpsfc: map['APCPsfc'] ?? 0,
+      apcpsfc: map['APCPsfc'] ?? 0.0,
       wndspd10m: map['WNDSPD10m'] ?? 0,
       wndgust10m: map['WNDGUST10m'] ?? 0,
       wnddir10m: map['WNDDIR10m'] ?? 0,
@@ -284,7 +285,7 @@ class HourlyMeteo {
       hgtoc: map['HGT0C'] ?? 0,
       kindex: map['KINDEX'] ?? 0,
       cape1800: map['CAPE180_0'] ?? "pas de donnée",
-      cin1800: map['CIN180_0'] ?? 0.0,
+      cin1800: map['CIN180_0'] ?? 0,
     );
   }
 }
