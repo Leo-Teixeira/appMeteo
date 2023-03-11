@@ -6,6 +6,7 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 
 import 'package:app_meteo/screen/new_favoris.dart';
 import 'package:app_meteo/services/constante/constante.dart';
+import 'package:latlong2/latlong.dart';
 
 class NewLocation extends ConsumerWidget {
   const NewLocation({Key? key}) : super(key: key);
@@ -29,6 +30,9 @@ Widget body(WidgetRef ref) {
           onTap: () {
             addPos(list[index].long, list[index].lat);
             ref.refresh(meteoProvider);
+            ref
+                .watch(MapProvider.notifier)
+                .saveAddPoint(LatLng(list[index].lat, list[index].long));
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const BottomAppBarWidgetState()));
           },

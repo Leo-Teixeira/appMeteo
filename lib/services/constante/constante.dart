@@ -8,6 +8,7 @@ import 'package:app_meteo/services/provider/location_function.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/meteocons_icons.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const sunIcon = Icon(Meteocons.sun);
@@ -30,6 +31,10 @@ final LocationProvider =
   return Locationnotifier();
 });
 
+final MapProvider = StateNotifierProvider<MapPointNotifier, LatLng?>((ref) {
+  return MapPointNotifier();
+});
+
 // final MeteoProvider = FutureProvider<Meteo>((ref) async {
 //   final SharedPreferences prefs = await SharedPreferences.getInstance();
 //   MeteoApi meteoApi = MeteoApi();
@@ -49,6 +54,9 @@ final meteoProvider = StreamProvider((ref) async* {
       double.parse(prefs.getString('long').toString()),
       double.parse(prefs.getString('lat').toString()));
   Meteo meteo = await meteoApi.getMeteo(address.city);
+  ref.watch(MapProvider.notifier).saveAddPoint(LatLng(
+      double.parse(prefs.getString('lat').toString()),
+      double.parse(prefs.getString('long').toString())));
   yield meteo;
 });
 

@@ -76,10 +76,6 @@ PreferredSizeWidget? appBar(BuildContext context, WidgetRef ref) {
   return AppBar(
     backgroundColor: const Color(0xFFBD1ACD),
     systemOverlayStyle: const SystemUiOverlayStyle(),
-    // flexibleSpace: Container(
-    //     decoration: const BoxDecoration(
-    //         gradient: LinearGradient(
-    //             colors: [Colors.purple, Colors.pink]))),
     leading: IconButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(

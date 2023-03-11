@@ -6,6 +6,7 @@ import 'package:app_meteo/object/adresseRepo.dart';
 import 'package:app_meteo/object/meteoRepo.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,6 +30,16 @@ class Locationnotifier extends StateNotifier<List<Address>> {
       for (final adr in state)
         if (adr.city != address.city) adr,
     ];
+  }
+}
+
+class MapPointNotifier extends StateNotifier<LatLng?> {
+  MapPointNotifier() : super(null);
+
+  //passer les preference en tant que liste initial
+
+  void saveAddPoint(LatLng address) {
+    state = address;
   }
 }
 
@@ -79,3 +90,9 @@ Future<void> addPos(double lat, double long) async {
   prefs.setString("lat", lat.toString());
   prefs.setString("long", long.toString());
 }
+
+final loadMapPoint = FutureProvider<LatLng>((ref) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return LatLng(double.parse(prefs.getString("lat").toString()),
+      double.parse(prefs.getString("long").toString()));
+});

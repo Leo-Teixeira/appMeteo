@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/meteocons_icons.dart';
 
 import 'package:app_meteo/services/constante/constante.dart';
+import 'package:latlong2/latlong.dart';
 
 class HomeWidget extends ConsumerWidget {
   const HomeWidget({super.key});

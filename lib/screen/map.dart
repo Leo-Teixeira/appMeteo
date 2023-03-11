@@ -1,19 +1,19 @@
+import 'package:app_meteo/services/constante/constante.dart';
+import 'package:app_meteo/services/provider/location_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-
-class MapWidget extends StatefulWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:latlong2/latlong.dart';
+class MapWidget extends ConsumerWidget {
   const MapWidget({super.key});
 
   @override
-  State<MapWidget> createState() => _MapWidgetState();
-}
-
-class _MapWidgetState extends State<MapWidget> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    LatLng point = ref.watch(MapProvider.notifier).state!;
     return Scaffold(
       body: FlutterMap(
           options: MapOptions(
+            center: point,
             zoom: 13.0,
             maxZoom: 19.0,
             keepAlive: true,
