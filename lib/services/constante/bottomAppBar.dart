@@ -58,6 +58,9 @@ class _BottomAppBarWidgetStateState
       });
       ref.watch(LocationProvider.notifier).addListAdr(list);
     }
+    if (index == 0) {
+      ref.watch(LocationProvider.notifier).getAddress();
+    }
     setState(() {
       _selectedIndex = index;
     });

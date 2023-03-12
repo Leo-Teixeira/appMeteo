@@ -31,6 +31,11 @@ class Locationnotifier extends StateNotifier<List<Address>> {
         if (adr.city != address.city) adr,
     ];
   }
+
+  void getAddress() async {
+    List<Address> addressList = await getPoint();
+    state = addressList;
+  }
 }
 
 class MapPointNotifier extends StateNotifier<LatLng?> {
@@ -52,6 +57,20 @@ class MeteoNotifier extends StateNotifier<Meteo> {
 }
 
 List<String> listJson = [];
+
+getPoint() async {
+  List<Address> addresseList = [];
+  Map<String, dynamic> decode = {};
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  listJson = prefs.getStringList("address")!;
+  if (listJson.length != 0) {
+    for (int i = 0; i < listJson.length; i++) {
+      decode = jsonDecode(listJson[i]);
+      addresseList.add(Address.fromMapJson(decode));
+    }
+  }
+  return addresseList;
+}
 
 getPos() async {
   LocationPermission perm = await Geolocator.checkPermission();
