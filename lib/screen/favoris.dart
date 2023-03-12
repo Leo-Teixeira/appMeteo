@@ -28,7 +28,7 @@ Widget body(WidgetRef ref) {
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           onTap: () {
-            addPos(list[index].long, list[index].lat);
+            addPos(list[index].lat, list[index].long);
             ref.refresh(meteoProvider);
             ref
                 .watch(MapProvider.notifier)

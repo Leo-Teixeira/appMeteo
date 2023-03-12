@@ -50,6 +50,7 @@ final meteoProvider = StreamProvider((ref) async* {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   MeteoApi meteoApi = MeteoApi();
   AddressRepository addressApi = AddressRepository();
+  print(prefs.getString("long").toString());
   Address address = await addressApi.fetchPosAddress(
       double.parse(prefs.getString('long').toString()),
       double.parse(prefs.getString('lat').toString()));

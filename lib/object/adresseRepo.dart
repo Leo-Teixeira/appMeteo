@@ -17,8 +17,8 @@ class Address {
     final String street = properties['name'];
     final String postcode = properties['postcode'];
     final String city = properties['city'];
-    final double lat = geometry['coordinates'][1];
     final double long = geometry['coordinates'][0];
+    final double lat = geometry['coordinates'][1];
 
     return Address(street, postcode, city, lat, long);
   }

@@ -193,7 +193,7 @@ class HourlyMeteo {
   final num? tmp2m;
   final num? dpt2m;
   final num? wndchill2m;
-  final String? humidex;
+  final num? humidex;
   final num? rh2m;
   final num? prmsl;
   final num? apcpsfc;
@@ -270,7 +270,7 @@ class HourlyMeteo {
       tmp2m: map['TMP2m'] ?? 0.0,
       dpt2m: map['DPT2m'] ?? 0.0,
       wndchill2m: map['WNDCHILL2m'] ?? 0.0,
-      humidex: map['HUMIDEX'] ?? "pas de donnée",
+      humidex: map['HUMIDEX'] ?? 0.0,
       rh2m: map['RH2m'] ?? 0,
       prmsl: map['PRMSL'] ?? 0.0,
       apcpsfc: map['APCPsfc'] ?? 0.0,
