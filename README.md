@@ -1,5 +1,7 @@
 <H1 style="text-align: center;">Application météo</H1>
 
+<img style="text-align: center;" src="https://cdn.iconscout.com/icon/free/png-256/weather-191-461610.png?f=webp&w=256"  alt=""/>
+
 <H2>Présentation du projet</H2>
 <br/>
 <p>Le projet est une application météo qui permet de consulter les conditions météorologiques actuel et jusqu'à 5 jours après d'une ville française grâce à une API météo.</p>
