@@ -33,7 +33,7 @@ class MapWidget extends ConsumerWidget {
             markers: [
               for (int i = 0; i < addressList.length; i++)
                 Marker(
-                  point: LatLng(addressList[i].lat, addressList[i].long),
+                  point: LatLng(addressList[i].lat ?? 0.0, addressList[i].long ?? 0.0),
                   width: 50,
                   height: 50,
                   builder: (context) => const Icon(

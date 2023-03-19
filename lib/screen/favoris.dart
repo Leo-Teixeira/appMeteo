@@ -28,11 +28,11 @@ Widget body(WidgetRef ref) {
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           onTap: () {
-            addPos(list[index].lat, list[index].long);
+            addPos(list[index].lat ?? 0.0, list[index].long ?? 0.0);
             ref.refresh(meteoProvider);
             ref
                 .watch(MapProvider.notifier)
-                .saveAddPoint(LatLng(list[index].lat, list[index].long));
+                .saveAddPoint(LatLng(list[index].lat ?? 0.0, list[index].long ?? 0.0));
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const BottomAppBarWidgetState()));
           },

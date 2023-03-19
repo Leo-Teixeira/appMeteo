@@ -22,11 +22,14 @@ class MeteoApi {
           CurrentCondition.fromMap(json['current_condition']);
       for (int i = 0; i < 5; i++) {
         final Map<String, dynamic> listHourly = json['fcst_day_$i'];
-        for (int i = 0; i < 23; i++) {
-          listHourlyData.add(HourlyMeteo.fromMap(listHourly['hourly_data']['${i}H00']));
+        for (int j = 0; j < 23; j++) {
+          listHourlyData
+              .add(HourlyMeteo.fromMap(listHourly['hourly_data']['${j}H00']));
         }
         listForecats.add(ForecastDay.fromMap(listHourly, listHourlyData));
+        listHourlyData.clear();
       }
+      print(listForecats[0].hourly_data!.length);
       final Meteo meteo = Meteo(
           info_city: infoCity,
           current_meteo: currentCondition,
