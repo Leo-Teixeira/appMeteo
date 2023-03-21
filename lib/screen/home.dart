@@ -149,6 +149,7 @@ class HomeWidget extends ConsumerWidget {
                       for (int i = 0; i < 5; i++)
                         GestureDetector(
                           onTap: () {
+                            print(data.past_day[i].day_short);
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => ForecastInfo(
