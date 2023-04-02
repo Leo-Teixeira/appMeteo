@@ -4,6 +4,7 @@ List<Map<String, dynamic>> getMeteoHoraire(List<ForecastDay> horaireMeteo) {
   List<Map<String, dynamic>> listHourlyData = [];
   int dateNow = DateTime.now().hour;
   int lostValue = 0;
+  print(horaireMeteo[0].hourly_data!.length);
   for (int i = 0; i < 24 + dateNow; i++) {
     if (i >= dateNow) {
       if (i <= 23) {

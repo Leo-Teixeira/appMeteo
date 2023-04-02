@@ -26,10 +26,12 @@ class MeteoApi {
           listHourlyData
               .add(HourlyMeteo.fromMap(listHourly['hourly_data']['${j}H00']));
         }
+        print(listHourlyData.length);
         listForecats.add(ForecastDay.fromMap(listHourly, listHourlyData));
-        listHourlyData.clear();
+        // listHourlyData.clear();
       }
-      print(listForecats[0].hourly_data!.length);
+      print('hzebfzejbfjkzefbzef');
+      print(listForecats[1].hourly_data!.length);
       final Meteo meteo = Meteo(
           info_city: infoCity,
           current_meteo: currentCondition,

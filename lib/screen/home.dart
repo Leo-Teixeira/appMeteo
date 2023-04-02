@@ -1,4 +1,3 @@
-import 'package:app_meteo/screen/forecast_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -147,49 +146,36 @@ class HomeWidget extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       for (int i = 0; i < 5; i++)
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ForecastInfo(
-                                  infoDay: data.past_day[i],
+                        Container(
+                          height: MediaQuery.of(context).size.height / 3,
+                          width: MediaQuery.of(context).size.width / 3,
+                          margin: const EdgeInsets.all(4),
+                          child: Card(
+                            shadowColor: primaryColor,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(40)),
+                            ),
+                            elevation: 8,
+                            margin: const EdgeInsets.all(15),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  data.past_day[i].day_short.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            height: MediaQuery.of(context).size.height / 3,
-                            width: MediaQuery.of(context).size.width / 3,
-                            margin: const EdgeInsets.all(4),
-                            child: Card(
-                              shadowColor: primaryColor,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(40)),
-                              ),
-                              elevation: 8,
-                              margin: const EdgeInsets.all(15),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    data.past_day[i].day_short.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(data.past_day[i].date.toString()),
-                                  Image.network(
-                                      data.past_day[i].icon.toString()),
-                                  Text(
-                                    "${(data.past_day[i].tmin! + data.past_day[i].tmax!) / 2}°",
-                                    style: const TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
+                                Text(data.past_day[i].date.toString()),
+                                Image.network(data.past_day[i].icon.toString()),
+                                Text(
+                                  "${(data.past_day[i].tmin! + data.past_day[i].tmax!) / 2}°",
+                                  style: const TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                           ),
                         ),

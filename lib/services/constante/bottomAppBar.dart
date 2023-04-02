@@ -3,9 +3,9 @@ import 'package:app_meteo/screen/favoris.dart';
 import 'package:app_meteo/services/constante/constante.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/linecons_icons.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:app_meteo/screen/home.dart';
 import 'package:app_meteo/screen/map.dart';
