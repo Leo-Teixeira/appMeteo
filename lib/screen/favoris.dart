@@ -30,9 +30,8 @@ Widget body(WidgetRef ref) {
           onTap: () {
             addPos(list[index].lat ?? 0.0, list[index].long ?? 0.0);
             ref.refresh(meteoProvider);
-            ref
-                .watch(MapProvider.notifier)
-                .saveAddPoint(LatLng(list[index].lat ?? 0.0, list[index].long ?? 0.0));
+            ref.watch(MapProvider.notifier).saveAddPoint(
+                LatLng(list[index].lat ?? 0.0, list[index].long ?? 0.0));
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const BottomAppBarWidgetState()));
           },
@@ -56,6 +55,7 @@ Widget body(WidgetRef ref) {
 
 Widget addFavorisButton(BuildContext context) {
   return FloatingActionButton(
+    backgroundColor: const Color(0xFFBD1ACD),
     onPressed: () async {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => const SearchAddress()));
