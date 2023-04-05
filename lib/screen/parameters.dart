@@ -1,8 +1,6 @@
-import 'package:app_meteo/services/constante/constante.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttericon/linecons_icons.dart';
 
 // class ParametersWidget extends StatefulWidget {
 //   const ParametersWidget({super.key});

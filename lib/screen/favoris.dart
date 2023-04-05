@@ -1,3 +1,5 @@
+// ignore_for_file: unused_result
+
 import 'package:app_meteo/services/constante/bottomAppBar.dart';
 import 'package:app_meteo/services/provider/location_function.dart';
 import 'package:flutter/material.dart';

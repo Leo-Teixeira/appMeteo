@@ -1,6 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names, file_names
 import 'package:flutter/cupertino.dart';
 
 @immutable
@@ -110,18 +108,18 @@ class CurrentCondition {
 
   factory CurrentCondition.fromMap(Map<String, dynamic> map) {
     return CurrentCondition(
-      date: map['date'] as String,
-      hour: map['hour'] as String,
+      date: map['date'] ?? "",
+      hour: map['hour'] ?? "",
       tmp: map['tmp'].toString(),
       wnd_spd: map['wnd_spd'].toString(),
       wnd_gust: map['wnd_gust'].toString(),
-      wnd_dir: map['wnd_dir'] as String,
+      wnd_dir: map['wnd_dir'] ?? "",
       pressure: map['pressure'].toString(),
       humidity: map['humidity'].toString(),
-      condition: map['condition'] as String,
-      condition_key: map['condition_key'] as String,
-      icon: map['icon'] as String,
-      icon_big: map['icon_big'] as String,
+      condition: map['condition'] ?? "",
+      condition_key: map['condition_key'] ?? "",
+      icon: map['icon'] ?? "",
+      icon_big: map['icon_big'] ?? "",
     );
   }
 }

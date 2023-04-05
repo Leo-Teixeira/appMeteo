@@ -1,6 +1,7 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:app_meteo/object/adresseRepo.dart';
 import 'package:app_meteo/services/constante/constante.dart';
-import 'package:app_meteo/services/provider/location_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,7 +34,8 @@ class MapWidget extends ConsumerWidget {
             markers: [
               for (int i = 0; i < addressList.length; i++)
                 Marker(
-                  point: LatLng(addressList[i].lat ?? 0.0, addressList[i].long ?? 0.0),
+                  point: LatLng(
+                      addressList[i].lat ?? 0.0, addressList[i].long ?? 0.0),
                   width: 50,
                   height: 50,
                   builder: (context) => const Icon(

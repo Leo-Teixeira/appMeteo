@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:app_meteo/object/adresseRepo.dart';
 import 'package:app_meteo/object/meteoRepo.dart';
-import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod/riverpod.dart';
@@ -63,7 +61,7 @@ getPoint() async {
   Map<String, dynamic> decode = {};
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   listJson = prefs.getStringList("address")!;
-  if (listJson.length != 0) {
+  if (listJson.isNotEmpty) {
     for (int i = 0; i < listJson.length; i++) {
       decode = jsonDecode(listJson[i]);
       addresseList.add(Address.fromMapJson(decode));

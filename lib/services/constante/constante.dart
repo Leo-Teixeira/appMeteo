@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:app_meteo/object/adresseRepo.dart';
@@ -53,7 +55,6 @@ final meteoProvider = StreamProvider((ref) async* {
   Address address = await addressApi.fetchPosAddress(
       double.parse(prefs.getString('long').toString()),
       double.parse(prefs.getString('lat').toString()));
-  print(address.city);
   Meteo meteo = await meteoApi.getMeteo(address.city);
   ref.watch(MapProvider.notifier).saveAddPoint(LatLng(
       double.parse(prefs.getString('lat').toString()),
