@@ -113,3 +113,19 @@ final loadMapPoint = FutureProvider<LatLng>((ref) async {
   return LatLng(double.parse(prefs.getString("lat").toString()),
       double.parse(prefs.getString("long").toString()));
 });
+
+enum ListMode { LIST, SEARCH }
+
+final listModeProviderState = StateProvider<ListMode>((_) => ListMode.LIST);
+
+final listModePorvider = Provider<ListMode>((ref) {
+  final ListMode sortType = ref.watch(listModeProviderState);
+
+  switch (sortType) {
+    case ListMode.LIST:
+      return ListMode.LIST;
+
+    case ListMode.SEARCH:
+      return ListMode.SEARCH;
+  }
+});

@@ -80,3 +80,8 @@ Lien des api :
     <li><a href="https://api.gouv.fr/">api du gouvernement</a></li>
 </ul>
 </p>
+</br>
+<p>
+Par soucis de temps et ne sachant pas vraiment comment m'y prendre je n'ai malheureusement pas gérer les accents ainsi que les apostrophes dans la recherche de ville. </br> Par conséquent si l'on clique sur ces favoris il n'y aura pas de météo retourné.
+</br> Ce sera pour une prochaine mise à jour.
+</p>
