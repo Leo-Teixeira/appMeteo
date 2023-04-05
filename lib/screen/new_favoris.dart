@@ -25,10 +25,6 @@ class _SearchAddressState extends ConsumerState<SearchAddress> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFBD1ACD),
         systemOverlayStyle: const SystemUiOverlayStyle(),
-        // flexibleSpace: Container(
-        //     decoration: const BoxDecoration(
-        //         gradient: LinearGradient(
-        //             colors: [Colors.purple, Colors.pink]))),
         title: const Text("Meteo App"),
         centerTitle: true,
         actions: [

@@ -79,10 +79,7 @@ class HomeWidget extends ConsumerWidget {
                   padding: const EdgeInsets.all(20),
                   child: Card(
                     elevation: 8,
-                    // shape: const RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.all(Radius.circular(30))),
                     shadowColor: primaryColor,
-                    // margin: const EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -122,8 +119,6 @@ class HomeWidget extends ConsumerWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      // for (int i = 0; i < 2; i++)
-
                       Row(
                         children: [
                           for (int i = 0; i < 3; i++)
@@ -141,7 +136,6 @@ class HomeWidget extends ConsumerWidget {
                     ],
                   ),
                 ),
-                //faire un row afin de demander a afficher plus d'info
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(

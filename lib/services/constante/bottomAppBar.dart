@@ -41,7 +41,6 @@ class _BottomAppBarWidgetStateState
     extends ConsumerState<BottomAppBarWidgetState> {
   final List<Widget> _widgetOptions = [];
   int _selectedIndex = 1;
-  late bool mode;
   late String text;
 
   @override
@@ -49,7 +48,6 @@ class _BottomAppBarWidgetStateState
     super.initState();
     _widgetOptions
         .addAll([const MapWidget(), const HomeWidget(), const NewLocation()]);
-    mode = false;
   }
 
   _onItemTapped(int index) async {

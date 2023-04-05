@@ -37,17 +37,6 @@ final MapProvider = StateNotifierProvider<MapPointNotifier, LatLng?>((ref) {
   return MapPointNotifier();
 });
 
-// final MeteoProvider = FutureProvider<Meteo>((ref) async {
-//   final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   MeteoApi meteoApi = MeteoApi();
-//   AddressRepository addressApi = AddressRepository();
-//   Address address = await addressApi.fetchPosAddress(
-//       double.parse(prefs.getString('long').toString()),
-//       double.parse(prefs.getString('lat').toString()));
-//   Meteo meteo = await meteoApi.getMeteo(address.city);
-//   return meteo;
-// });
-
 final meteoProvider = StreamProvider((ref) async* {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   MeteoApi meteoApi = MeteoApi();
